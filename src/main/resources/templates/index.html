@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>トップページ</title>
+    <style>body{font-family:Arial,sans-serif;margin:2rem}</style>
+</head>
+<body>
+    <h1>ようこそ、<span th:text="${username}">user</span>さん</h1>
+    <p>これはログイン後のトップページです。</p>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <button type="submit">ログアウト</button>
+    </form>
+    <p>または <a th:href="@{/perform-logout}">こちら</a> をクリックしてログアウトできます（GET）。</p>
+    <p><a th:href="@{/h2-console}" target="_blank">H2 Console</a></p>
+</body>
+</html>
