@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>ようこそ、<span th:text="${username}">user</span>さん</h1>
-    <p>ログイン中です</p>
+    <p>DBを使ってログイン中です</p>
     <form th:action="@{/logout}" method="post">
         <button type="submit">ログアウト</button>
     </form>
