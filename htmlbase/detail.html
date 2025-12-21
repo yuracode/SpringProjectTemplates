@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>掲示板 | 記事詳細</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="brand">
+        <mark>Board</mark>
+        <span>ログイン中の掲示板</span>
+      </div>
+      <div class="user-chip">
+        <span>👤</span>
+        <span>Yuki Sato</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <a class="back" href="posts.html">← 記事一覧に戻る</a>
+
+    <article class="detail">
+      <div class="meta">
+        <span>2025/12/21</span>
+        <span>Tech</span>
+        <span>作成者: Yuki Sato</span>
+      </div>
+      <h1>次期リリースに向けたチェックポイント</h1>
+      <div class="badges">
+        <span class="badge">進行中</span>
+        <span class="badge">優先度: 高</span>
+        <span class="badge">リリース</span>
+      </div>
+
+      <p>年末リリースに向けた主要な確認項目をまとめています。依存ライブラリの更新状況、パフォーマンス改善の進捗、クリティカルバグのトラッキングを中心に整理しました。</p>
+      <p>各担当者は今週末までに担当領域の進捗とリスクをコメントしてください。テスト計画は下記の順で実施予定です。</p>
+      <ul>
+        <li>自動テスト: 12/22 完了予定</li>
+        <li>手動回帰テスト: 12/23 開始</li>
+        <li>リリース判定ミーティング: 12/25 午前</li>
+      </ul>
+      <p>気になる点やリスクがあれば、早めにコメント欄で共有をお願いします。</p>
+
+      <h3>コメント (ダミー)</h3>
+      <div class="comment-list">
+        <div class="comment">
+          <div class="meta">
+            <span>Hayato</span>
+            <span>12/21 09:20</span>
+          </div>
+          <p class="preview">依存ライブラリの更新テストを今夜回します。結果は明日午前に共有予定です。</p>
+        </div>
+        <div class="comment">
+          <div class="meta">
+            <span>Mina</span>
+            <span>12/20 18:05</span>
+          </div>
+          <p class="preview">パフォーマンス改善の A/B テストは 5% 流量で実施中。初動は安定しています。</p>
+        </div>
+      </div>
+    </article>
+
+    <div class="footer">社内掲示板モック</div>
+  </main>
+</body>
+</html>

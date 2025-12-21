@@ -1,0 +1,77 @@
+# Java compiled classes
+*.class
+
+# Logs
+*.log
+spring.log
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+# Package archives (keep Gradle/Maven wrappers unignored below)
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Keystores
+*.jks
+*.keystore
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Build outputs
+bin/
+out/
+build/
+**/build/
+target/
+
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Maven
+!.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+pom.xml.bak
+dependency-reduced-pom.xml
+
+# IDEs
+# Eclipse / STS
+.classpath
+.project
+.settings/
+.springBeans
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# Node/npm (if present in mixed projects)
+node_modules/
+
+# Notes:
+# - application.properties / application.yml はコミット対象のままにしています。
+#   機密は環境変数や別管理にし、必要ならサンプルのみをコミットしてください。
