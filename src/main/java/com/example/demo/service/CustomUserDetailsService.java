@@ -4,9 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.demo.mapper.ProjectUser;
-import com.example.demo.mapper.ProjectUserMapper;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,12 +12,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.mapper.ProjectUser;
+import com.example.demo.mapper.ProjectUserMapper;
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private ProjectUserMapper mapper;
 
+    //こちらのServiceが稼働するとSecurityConfigの
+    //public InMemoryUserDetailsManager userDetailsService()
+    //は無効になる。
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         ProjectUser u = mapper.findByUsername(username);
