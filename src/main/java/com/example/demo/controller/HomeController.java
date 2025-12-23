@@ -18,5 +18,12 @@ public class HomeController {
     public String login() {
         return "login";
     }
-
+    @GetMapping("/screen1")
+    public String screen1() {
+        return "screen1";
+    }
+        @GetMapping("/screen2")
+    public String screen2() {
+        return "screen2";
+    }
 }
