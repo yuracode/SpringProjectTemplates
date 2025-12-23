@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="header">
+<head th:fragment="head">
     <meta charset="UTF-8">
     <title>アプリ名</title>
-    <style>
-        header { background: #333; color: white; padding: 20px; }
-        footer { background: #666; color: white; padding: 10px; text-align: center; margin-top: 50px; }
-    </style>
+    <link rel="stylesheet" th:href="@{/sample.css}">
 </head>
 <body>
     <header th:fragment="navbar">
         <h1>サイトタイトル</h1>
         <nav>
-            <a th:href="@{/}" style="color: white; margin-right: 15px;">ホーム</a>
-            <a th:href="@{/about}" style="color: white;">概要</a>
+            <a th:href="@{/}">ホーム</a>
+            <a th:href="@{/about}">概要</a>
         </nav>
     </header>
 

@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/* ヘッダー */
+header {
+    background: #333;
+    color: white;
+    padding: 20px;
+}
+
+header h1 {
+    margin: 0 0 10px 0;
+}
+
+header a {
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
+}
+
+/* メイン */
+main {
+    padding: 20px;
+    min-height: 400px;
+}
+
+/* フッター */
+footer {
+    background: #666;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 50px;
+}

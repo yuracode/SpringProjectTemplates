@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>タイトル</title>
-    <style>/* CSSをここに */</style>
-</head>
+<head th:replace="~{fragments/layout::head}"></head>
 <body>
-    <div th:replace="~{fragments/layout :: navbar}"></div>
+    <div th:replace="~{fragments/layout::navbar}"></div>
     
-    <main style="padding: 20px;">
-        <h2>メインコンテンツその２</h2>
+    <main>
+        <h2>学校について</h2>
+        <p>ここに説明文</p>
     </main>
 
-    <div th:replace="~{fragments/layout :: footer}"></div>
+    <div th:replace="~{fragments/layout::footer}"></div>
 </body>
 </html>
