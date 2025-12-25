@@ -10,4 +10,10 @@ public interface ProjectUserMapper {
 
     List<ProjectUser> findAll();
 
+    List<ProjectUser> findUsersWithSubmissionByProject(String projectName);
+
+    List<ProjectUser> findUsersWithoutSubmissionByProject(String projectName);
+
+    List<SubmissionSummary> findSubmittedSummariesByProject(String projectName);
+
 }

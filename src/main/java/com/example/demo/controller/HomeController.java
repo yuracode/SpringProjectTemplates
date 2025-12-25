@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.demo.mapper.ProjectUser;
 import com.example.demo.mapper.ProjectUserMapper;
+import com.example.demo.mapper.SubmissionSummary;
 
 @Controller
 public class HomeController {
@@ -47,5 +48,16 @@ public class HomeController {
         @GetMapping("/screen2")
     public String screen2() {
         return "screen2";
+    }
+
+    @GetMapping("/admin/submissions")
+    public String submissions(Model model) {
+        String project = "Spring Boot課題";
+        List<SubmissionSummary> submitted = projectUserMapper.findSubmittedSummariesByProject(project);
+        List<ProjectUser> notSubmitted = projectUserMapper.findUsersWithoutSubmissionByProject(project);
+        model.addAttribute("project", project);
+        model.addAttribute("submitted", submitted);
+        model.addAttribute("notSubmitted", notSubmitted);
+        return "submissions";
     }
 }

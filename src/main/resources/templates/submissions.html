@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>課題提出状況</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        table { border-collapse: collapse; margin-right: 2rem; }
+        th, td { border: 1px solid #ccc; padding: 6px 10px; }
+    </style>
+</head>
+<body>
+    <h1 th:text="${project} + ' の提出状況'"></h1>
+    <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+        <div>
+            <h2>提出者</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ユーザー名</th>
+                        <th>ロール</th>
+                        <th>得点</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="s : ${submitted}">
+                        <td th:text="${s.id}">1</td>
+                        <td th:text="${s.username}">user</td>
+                        <td th:text="${s.roles}">ROLE_USER</td>
+                        <td th:text="${s.score}">85</td>
+                    </tr>
+                    <tr th:if="${submitted == null or #lists.isEmpty(submitted)}">
+                        <td colspan="4">提出者はいません</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h2>未提出者</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ユーザー名</th>
+                        <th>ロール</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="u : ${notSubmitted}">
+                        <td th:text="${u.id}">2</td>
+                        <td th:text="${u.username}">admin</td>
+                        <td th:text="${u.roles}">ROLE_ADMIN</td>
+                    </tr>
+                    <tr th:if="${notSubmitted == null or #lists.isEmpty(notSubmitted)}">
+                        <td colspan="3">未提出者はいません</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <p><a th:href="@{/}">戻る</a></p>
+</body>
+</html>

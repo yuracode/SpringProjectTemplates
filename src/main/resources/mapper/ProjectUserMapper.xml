@@ -15,4 +15,36 @@
     SELECT id, username, password, enabled, roles FROM project_users
   </select>
 
+  <select id="findUsersWithSubmissionByProject" resultType="com.example.demo.mapper.ProjectUser">
+    SELECT pu.id, pu.username, pu.password, pu.enabled, pu.roles
+    FROM project_users pu
+    WHERE EXISTS (
+      SELECT 1 FROM project_submissions ps
+      WHERE ps.user_id = pu.id
+        AND ps.project_name = #{projectName}
+    )
+  </select>
+
+  <select id="findUsersWithoutSubmissionByProject" resultType="com.example.demo.mapper.ProjectUser">
+    SELECT pu.id, pu.username, pu.password, pu.enabled, pu.roles
+    FROM project_users pu
+    WHERE NOT EXISTS (
+      SELECT 1 FROM project_submissions ps
+      WHERE ps.user_id = pu.id
+        AND ps.project_name = #{projectName}
+    )
+  </select>
+
+  <select id="findSubmittedSummariesByProject" resultType="com.example.demo.mapper.SubmissionSummary">
+    SELECT pu.id,
+           pu.username,
+           pu.roles,
+           MAX(ps.score) AS score
+    FROM project_users pu
+    JOIN project_submissions ps ON ps.user_id = pu.id
+    WHERE ps.project_name = #{projectName}
+    GROUP BY pu.id, pu.username, pu.roles
+    ORDER BY pu.id
+  </select>
+
 </mapper>

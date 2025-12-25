@@ -12,6 +12,7 @@
     <h1>ようこそ、<span th:text="${username}">user</span>さん</h1>
     <p>DBを使ってログイン中です</p>
     <div th:if="${users} != null">
+        <p><a th:href="@{/admin/submissions}">課題提出状況を見る</a></p>
         <h2>ユーザー一覧</h2>
         <table border="1" cellpadding="6" cellspacing="0">
             <thead>
