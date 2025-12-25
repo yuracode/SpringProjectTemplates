@@ -11,4 +11,8 @@
     VALUES (#{username}, #{password}, #{enabled}, #{roles})
   </insert>
 
+  <select id="findAll" resultType="com.example.demo.mapper.ProjectUser">
+    SELECT id, username, password, enabled, roles FROM project_users
+  </select>
+
 </mapper>

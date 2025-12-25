@@ -11,6 +11,27 @@
 <body>
     <h1>ようこそ、<span th:text="${username}">user</span>さん</h1>
     <p>DBを使ってログイン中です</p>
+    <div th:if="${users} != null">
+        <h2>ユーザー一覧</h2>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>ユーザー名</th>
+                    <th>ロール</th>
+                    <th>有効</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="u : ${users}">
+                    <td th:text="${u.id}">1</td>
+                    <td th:text="${u.username}">user</td>
+                    <td th:text="${u.roles}">ROLE_USER</td>
+                    <td th:text="${u.enabled}">true</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <form th:action="@{/logout}" method="post">
         <button type="submit">ログアウト</button>
     </form>
