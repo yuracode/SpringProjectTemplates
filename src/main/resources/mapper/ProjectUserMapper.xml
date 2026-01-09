@@ -47,4 +47,8 @@
     ORDER BY pu.id
   </select>
 
+  <update id="updateImagePath">
+    UPDATE project_users SET image_path = #{imagePath} WHERE id = #{id}
+  </update>
+
 </mapper>

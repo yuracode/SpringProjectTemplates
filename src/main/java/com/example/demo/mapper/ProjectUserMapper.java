@@ -2,6 +2,10 @@ package com.example.demo.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+@Mapper
 public interface ProjectUserMapper {
 
     ProjectUser findByUsername(String username);
@@ -15,5 +19,7 @@ public interface ProjectUserMapper {
     List<ProjectUser> findUsersWithoutSubmissionByProject(String projectName);
 
     List<SubmissionSummary> findSubmittedSummariesByProject(String projectName);
+
+    void updateImagePath(Long id, String imagePath);
 
 }

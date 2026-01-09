@@ -11,4 +11,5 @@ public class ProjectUser {
     private String password;
     private boolean enabled;
     private String roles;
+    private String imagePath;
 }

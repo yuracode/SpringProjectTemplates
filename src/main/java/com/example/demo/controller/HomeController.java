@@ -23,6 +23,14 @@ public class HomeController {
     @GetMapping("/")
     public String index(Principal principal, Model model) {
         model.addAttribute("username", principal != null ? principal.getName() : "anonymous");
+        // ログインユーザーの画像パスを取得
+        if (principal != null) {
+            ProjectUser currentUser = projectUserMapper.findByUsername(principal.getName());
+
+            if (currentUser != null) {
+                model.addAttribute("imagePath", currentUser.getImagePath());
+            }
+        }
         // ROLE_ADMIN の場合、ユーザー一覧を表示するために取得
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {

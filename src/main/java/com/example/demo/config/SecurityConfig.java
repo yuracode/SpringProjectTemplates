@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class SecurityConfig {
@@ -25,7 +27,7 @@ public class SecurityConfig {
             // 開発用にCSRFを無効化（必要に応じて有効化し、フォームにトークンを追加）
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authz -> authz
-                .requestMatchers("/login", "/error", "/h2-console/**", "/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/login", "/error", "/h2-console/**", "/css/**", "/js/**", "/images/**", "/uploads/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
@@ -43,6 +45,21 @@ public class SecurityConfig {
                 .permitAll()
             );
         return http.build();
+    }
+
+    /**
+     * ファイルシステムのアップロードディレクトリを静的リソースとして追加
+     */
+    @Bean
+    public WebMvcConfigurer webMvcConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addResourceHandlers(ResourceHandlerRegistry registry) {
+                registry
+                    .addResourceHandler("/uploads/**")
+                    .addResourceLocations("file:uploads/");
+            }
+        };
     }
 
 }

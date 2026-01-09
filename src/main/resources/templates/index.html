@@ -11,6 +11,9 @@
 <body>
     <h1>ようこそ、<span th:text="${username}">user</span>さん</h1>
     <p>DBを使ってログイン中です</p>
+    <div th:if="${imagePath} != null" style="margin: 20px 0;">
+        <img th:src="${imagePath}" alt="プロフィール画像" style="width: 10%; border-radius: 8px;">
+    </div>
     <div th:if="${users} != null">
         <p><a th:href="@{/admin/submissions}">課題提出状況を見る</a></p>
         <h2>ユーザー一覧</h2>
