@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.mapper.ImageFile;
+import com.example.demo.mapper.ImageFileMapper;
 import com.example.demo.mapper.ProjectUser;
 import com.example.demo.mapper.ProjectUserMapper;
 
@@ -33,8 +36,8 @@ public class ImageController {
     @Autowired
     private ProjectUserMapper projectUserMapper;
 
-    @Value("${upload.path}")
-    private String uploadPath;
+    @Autowired
+    private ImageFileMapper imageFileMapper;
 
     /**
      * 画像アップロードフォーム表示
@@ -74,24 +77,21 @@ public class ImageController {
         }
 
         try {
-            // アップロード先ディレクトリの作成
-            Path uploadDir = Paths.get(uploadPath).toAbsolutePath().normalize();
-            Files.createDirectories(uploadDir);
+            // ファイルをバイト配列として読み込む
+            byte[] fileData = file.getBytes();
 
-            // ファイル名をユニーク化
-            String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
-
-            // ファイルを保存
-            Path filePath = uploadDir.resolve(uniqueFilename).normalize();
-            file.transferTo(filePath.toFile());
-
-            // DBにファイルパスを保存
+            // DBに画像ファイル情報をBLOBとして保存
             String username = principal.getName();
             ProjectUser user = projectUserMapper.findByUsername(username);
             if (user != null) {
-                user.setImagePath("/uploads/images/" + uniqueFilename);
-                projectUserMapper.updateImagePath(user.getId(), user.getImagePath());
+                ImageFile imageFile = new ImageFile();
+                imageFile.setUserId(user.getId());
+                imageFile.setFilename(originalFilename);
+                imageFile.setFileData(fileData);
+                imageFile.setFileType(file.getContentType());
+                imageFile.setFileSize(file.getSize());
+                imageFile.setUploadedAt(LocalDateTime.now());
+                imageFileMapper.insert(imageFile);
             }
 
             redirectAttributes.addFlashAttribute("message", "画像がアップロードされました");
@@ -103,28 +103,20 @@ public class ImageController {
     }
 
     /**
-     * 保存された画像を取得（ファイルシステムから配信）
+     * DBに保存された画像を取得（BLOBから配信）
      */
-    @GetMapping("/uploads/images/{filename}")
-    public ResponseEntity<Resource> getImage(@PathVariable String filename) {
+    @GetMapping("/view/{id}")
+    public ResponseEntity<byte[]> getImageById(@PathVariable Long id) {
         try {
-            Path uploadDir = Paths.get(uploadPath).toAbsolutePath().normalize();
-            Path filePath = uploadDir.resolve(filename).normalize();
-
-            // パストラバーサル攻撃対策
-            if (!filePath.getParent().equals(uploadDir)) {
-                return ResponseEntity.badRequest().build();
-            }
-
-            File file = filePath.toFile();
-            if (!file.exists()) {
+            ImageFile imageFile = imageFileMapper.findByUserId(id);
+            if (imageFile == null || imageFile.getFileData() == null) {
                 return ResponseEntity.notFound().build();
             }
 
-            Resource resource = new UrlResource(filePath.toUri());
             return ResponseEntity.ok()
-                    .header("Content-Disposition", "inline; filename=\"" + filename + "\"")
-                    .body(resource);
+                    .header("Content-Type", imageFile.getFileType() != null ? imageFile.getFileType() : "image/jpeg")
+                    .header("Content-Disposition", "inline; filename=\"" + imageFile.getFilename() + "\"")
+                    .body(imageFile.getFileData());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

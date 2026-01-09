@@ -20,6 +20,4 @@ public interface ProjectUserMapper {
 
     List<SubmissionSummary> findSubmittedSummariesByProject(String projectName);
 
-    void updateImagePath(Long id, String imagePath);
-
 }

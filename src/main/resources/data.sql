@@ -1,6 +1,6 @@
-INSERT INTO project_users (username, password, enabled, roles, image_path) VALUES ('user', 'password', true, 'ROLE_USER', null);
-INSERT INTO project_users (username, password, enabled, roles, image_path) VALUES ('admin', 'password', true, 'ROLE_ADMIN', null);
-INSERT INTO project_users (username, password, enabled, roles, image_path) VALUES ('member3', 'password', true, 'ROLE_USER', null);
+INSERT INTO project_users (username, password, enabled, roles) VALUES ('user', 'password', true, 'ROLE_USER');
+INSERT INTO project_users (username, password, enabled, roles) VALUES ('admin', 'password', true, 'ROLE_ADMIN');
+INSERT INTO project_users (username, password, enabled, roles) VALUES ('member3', 'password', true, 'ROLE_USER');
 
 -- サンプル課題提出データ
 INSERT INTO project_submissions (user_id, project_name, score) VALUES

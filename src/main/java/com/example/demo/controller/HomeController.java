@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.example.demo.mapper.ImageFile;
+import com.example.demo.mapper.ImageFileMapper;
 import com.example.demo.mapper.ProjectUser;
 import com.example.demo.mapper.ProjectUserMapper;
 import com.example.demo.mapper.SubmissionSummary;
@@ -20,15 +22,21 @@ public class HomeController {
     @Autowired
     private ProjectUserMapper projectUserMapper;
 
+    @Autowired
+    private ImageFileMapper imageFileMapper;
+
     @GetMapping("/")
     public String index(Principal principal, Model model) {
         model.addAttribute("username", principal != null ? principal.getName() : "anonymous");
-        // ログインユーザーの画像パスを取得
+        // ログインユーザーの画像ファイル情報を取得
         if (principal != null) {
             ProjectUser currentUser = projectUserMapper.findByUsername(principal.getName());
-
             if (currentUser != null) {
-                model.addAttribute("imagePath", currentUser.getImagePath());
+                ImageFile imageFile = imageFileMapper.findByUserId(currentUser.getId());
+                if (imageFile != null) {
+                    model.addAttribute("imageFile", imageFile);
+                    model.addAttribute("imageUrl", "/image/view/" + currentUser.getId());
+                }
             }
         }
         // ROLE_ADMIN の場合、ユーザー一覧を表示するために取得

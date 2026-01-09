@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ImageFileMapper">
+
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO image_files (user_id, filename, file_data, file_type, file_size, uploaded_at)
+    VALUES (#{userId}, #{filename}, #{fileData}, #{fileType}, #{fileSize}, #{uploadedAt})
+  </insert>
+
+  <select id="findByUserId" resultType="com.example.demo.mapper.ImageFile">
+    SELECT * FROM image_files WHERE user_id = #{userId} ORDER BY uploaded_at DESC LIMIT 1
+  </select>
+
+  <select id="findAllByUserId" resultType="com.example.demo.mapper.ImageFile">
+    SELECT * FROM image_files WHERE user_id = #{userId} ORDER BY uploaded_at DESC
+  </select>
+
+</mapper>
